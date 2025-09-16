@@ -1,0 +1,13 @@
+name: CI
+on:
+  push:    # se ejecuta cada vez que haces push
+    branches: [ "main" ]  # solo en la rama principal
+  workflow_dispatch:  # también se puede lanzar manualmente desde Actions
+
+jobs:   # cada job es un conjunto de tareas
+  build:
+    runs-on: ubuntu-latest   # GitHub crea un "runner" con Ubuntu
+
+    steps:
+      - name: "Mostrar mensaje"
+        run: echo "Hola mundo"
