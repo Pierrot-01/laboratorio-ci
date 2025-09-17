@@ -1,13 +1,31 @@
-name: CI
-on:
-  push:    # se ejecuta cada vez que haces push
-    branches: [ "main" ]  # solo en la rama principal
-  workflow_dispatch:  # también se puede lanzar manualmente desde Actions
+name: CI - Node.js
 
-jobs:   # cada job es un conjunto de tareas
-  build:
-    runs-on: ubuntu-latest   # GitHub crea un "runner" con Ubuntu
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
 
     steps:
-      - name: "Mostrar mensaje"
-        run: echo "Hola mundo"
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Instalar dependencias
+        run: npm ci || npm install
+
+      - name: Ejecutar tests
+        run: npm test
+
+      - name: Simulación de despliegue
+        run: echo "Despliegue simulado exitoso 🚀"
