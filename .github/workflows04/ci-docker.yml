@@ -1,0 +1,39 @@
+name: CI - Docker
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        run: |
+          docker build -t mi-app-node:${{ github.sha }} .
+
+      - name: Run container in background
+        run: |
+          docker run --rm -d -p 3000:3000 --name ci-test mi-app-node:${{ github.sha }}
+          # esperar a que arranque
+          sleep 5
+
+      - name: Smoke test (curl)
+        run: |
+          # intenta acceder al endpoint; si falla, muestra logs del contenedor
+          if ! curl --fail --retry 5 --retry-delay 2 http://localhost:3000; then
+            docker logs ci-test || true
+            docker rm -f ci-test || true
+            exit 1
+          fi
+
+      - name: Cleanup container
+        if: always()
+        run: docker rm -f ci-test || true
