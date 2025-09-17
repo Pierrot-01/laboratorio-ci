@@ -1,0 +1,23 @@
+{
+  "name": "laboratorio-ci",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000L\u0000a\u0000b\u0000o\u0000r\u0000a\u0000t\u0000o\u0000r\u0000i\u0000o\u0000 \u0000C\u0000I\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"(Sin pruebas todavía)\" && exit 0",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pierrot-01/laboratorio-ci.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pierrot-01/laboratorio-ci/issues"
+  },
+  "homepage": "https://github.com/Pierrot-01/laboratorio-ci#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
